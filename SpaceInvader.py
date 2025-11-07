@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from settings import Settings
+from ship import Ship
 
 class SpaceInvader:
     """Clase general que gestionará los recursos y el comportamiento del juego"""
@@ -17,6 +18,8 @@ class SpaceInvader:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("SpaceInvaders")
 
+        self.ship = Ship(self)
+
         # Configuración del color de fondo de la pantalla
         self.bg_color = (self.settings.bg_color) 
 
@@ -30,6 +33,7 @@ class SpaceInvader:
 
             # Redibuja la pantalla en cada paso por el bucle
             self.screen.fill(self.bg_color)
+            self.ship.blitme()
 
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
