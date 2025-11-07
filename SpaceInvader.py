@@ -13,6 +13,9 @@ class SpaceInvader:
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("SpaceInvaders")
 
+        # Configuración del color de fondo de la pantalla
+        self.bg_color = (50,50,50) 
+
     def run_game(self):
         """Inicio del buble principal del juego"""
         while True:
@@ -20,6 +23,9 @@ class SpaceInvader:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+            # Redibuja la pantalla en cada paso por el bucle
+            self.screen.fill(self.bg_color)
 
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
