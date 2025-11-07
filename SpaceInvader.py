@@ -2,6 +2,8 @@ import sys
 
 import pygame
 
+from settings import Settings
+
 class SpaceInvader:
     """Clase general que gestionará los recursos y el comportamiento del juego"""
 
@@ -9,12 +11,14 @@ class SpaceInvader:
         """Inicializa el juego y crea los recursos"""
         pygame.init()
         self.clock = pygame.time.Clock()
+        self.settings = Settings ()
 
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("SpaceInvaders")
 
         # Configuración del color de fondo de la pantalla
-        self.bg_color = (50,50,50) 
+        self.bg_color = (self.settings.bg_color) 
 
     def run_game(self):
         """Inicio del buble principal del juego"""
