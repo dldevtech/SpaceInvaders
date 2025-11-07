@@ -26,18 +26,24 @@ class SpaceInvader:
     def run_game(self):
         """Inicio del buble principal del juego"""
         while True:
-            # Buscamos eventos del ratón y el teclado
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
+            self.clock.tick(60)
+    
+    def _check_events(self):
+        """Responde a las pulsaciones delas teclas y eventos del ratón"""
+        # Buscamos eventos del ratón y el teclado
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-            # Redibuja la pantalla en cada paso por el bucle
+    def _update_screen(self):
+            """Actualiza las imágenes en la pantalla y cambia a la pantalla nueva"""
             self.screen.fill(self.bg_color)
             self.ship.blitme()
 
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
-            self.clock.tick(60)
 
 if __name__ == '__main__':
     # Hace una instancia del juego y lo ejecuta
