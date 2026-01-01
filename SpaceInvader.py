@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class SpaceInvader:
     """Clase general que gestionará los recursos y el comportamiento del juego"""
@@ -19,20 +20,27 @@ class SpaceInvader:
         pygame.display.set_caption("SpaceInvaders")
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
         # Configuración del color de fondo de la pantalla
         self.bg_color = (self.settings.bg_color) 
 
     def run_game(self):
-        """Inicio del buble principal del juego"""
+        """Inicio del bucle principal del juego"""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
+            # Se deshace de las balas que han desaparecido
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            print(len(self.bullets))
             self._update_screen()
             self.clock.tick(60)
     
     def _check_events(self):
-        """Responde a las pulsaciones delas teclas y eventos del ratón"""
+        """Responde a las pulsaciones de las teclas y eventos del ratón"""
         # Buscamos eventos del ratón y el teclado
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,6 +59,8 @@ class SpaceInvader:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """Responde a las liberaciones de las teclas."""
@@ -58,10 +68,17 @@ class SpaceInvader:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+    
+    def _fire_bullet(self):
+        """Crea una nueva bala y la añade al grupo de balas"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _update_screen(self):
             """Actualiza las imágenes en la pantalla y cambia a la pantalla nueva"""
             self.screen.fill(self.bg_color)
+            for bullet in self.bullets.sprites():
+                bullet.draw_bullet()
             self.ship.blitme()
 
             # Hace visible la última pantalla dibujada
