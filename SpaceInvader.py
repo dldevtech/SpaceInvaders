@@ -30,12 +30,7 @@ class SpaceInvader:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-            # Se deshace de las balas que han desaparecido
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            print(len(self.bullets))
+            self._update_bullets()
             self._update_screen()
             self.clock.tick(60)
     
@@ -84,6 +79,18 @@ class SpaceInvader:
 
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
+    
+    def _update_bullets(self):
+        """Actualiza la posición de las balas y se deshace de las viejas"""
+        # Actualiza las posiciones de las balas
+        self.bullets.update()
+        
+        # Se deshace de las balas que han desaparecido
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))
+
 
 if __name__ == '__main__':
     # Hace una instancia del juego y lo ejecuta
