@@ -71,8 +71,9 @@ class SpaceInvader:
     
     def _fire_bullet(self):
         """Crea una nueva bala y la añade al grupo de balas"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _update_screen(self):
             """Actualiza las imágenes en la pantalla y cambia a la pantalla nueva"""
