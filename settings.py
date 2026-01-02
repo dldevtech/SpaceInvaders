@@ -4,8 +4,8 @@ class Settings:
     def __init__(self):
         """Inicialización de la configuración del juego"""
         # Configuración de la pantalla
-        self.screen_width = 1200
-        self.screen_height = 800
+        self.screen_width = 800
+        self.screen_height = 600
         self.bg_color = (50, 50, 50)
 
         # Configuración de la nave

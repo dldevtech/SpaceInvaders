@@ -76,8 +76,18 @@ class SpaceInvader:
     
     def _create_fleet(self):
         """Crea una flota de aliens"""
-        # Hace un alien
+        # Crea un alienigena y va añadiendo alienigenas hasta que no haya espacio
+        # La distancia entre alienigenas es equivalente al ancho de un extraterrestre
         alien = Alien(self)
+        alien_width = alien.rect.width
+
+        current_x = alien_width
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            new_alien = Alien(self)
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            self.aliens.add(new_alien)
+            current_x += alien_width * 2
         self.aliens.add(alien)
 
     def _update_screen(self):
