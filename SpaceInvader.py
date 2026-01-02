@@ -5,6 +5,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class SpaceInvader:
     """Clase general que gestionará los recursos y el comportamiento del juego"""
@@ -21,6 +22,9 @@ class SpaceInvader:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
         # Configuración del color de fondo de la pantalla
         self.bg_color = (self.settings.bg_color) 
@@ -69,6 +73,12 @@ class SpaceInvader:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+    
+    def _create_fleet(self):
+        """Crea una flota de aliens"""
+        # Hace un alien
+        alien = Alien(self)
+        self.aliens.add(alien)
 
     def _update_screen(self):
             """Actualiza las imágenes en la pantalla y cambia a la pantalla nueva"""
@@ -76,6 +86,7 @@ class SpaceInvader:
             for bullet in self.bullets.sprites():
                 bullet.draw_bullet()
             self.ship.blitme()
+            self.aliens.draw(self.screen)
 
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
